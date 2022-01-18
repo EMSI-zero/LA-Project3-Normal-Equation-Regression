@@ -40,15 +40,19 @@ def Inverse(matrix):
     return inverse
 
 
-def matrixChainMultiplication( n , *args):
+def matrixChainMultiplication( Y , AT , ATA1):
     """Multiply a chain of matrices in optimal order
 
     Args:
-        n (int): number of matrices
-
+        Y(nparray) : Ys matrix
+        AT(nparray) : A Transpose
+        ATA1(nparray) : inverse of A * AT
     Returns:
         nparray: product matrix
     """
+    
+    product = np.matmul(ATA1, np.matmul(AT , Y))
+    
     return product
 
 
