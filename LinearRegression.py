@@ -38,6 +38,17 @@ def Inverse(matrix):
     return matrix
 
 
+def matrixChainMultiplication( n , *args):
+    """Multiply a chain of matrices in optimal order
+
+    Args:
+        n (int): number of matrices
+
+    Returns:
+        nparray: product matrix
+    """
+    return product
+
 
 def linearPredictaion(x , a0 , a1):
     """Predicts the Expected output by using the coefficients calculated by linearRegression.
