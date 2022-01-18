@@ -76,4 +76,13 @@ def quadraticPrediction(x , a0 , a1 , a2):
         Y(double): answer calculated by quadraticRegression prediction
     """
     pass
+
+def printGraph(X , Y):
+    """Prints a graph by using matplotlib graph generator
+
+    Args:
+        X (list): Set of Xs
+        Y (list): Set of Ys
+    """
+    pass
     
