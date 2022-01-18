@@ -1,8 +1,6 @@
-from re import X
-from tkinter import Y
-import numpy
-import pandas
-import matplotlib
+import numpy as np
+import pandas as pan
+import matplotlib.pyplot as plt
 
 def linearRegression(dataFrame):
     """Finds a Linear Regression for a set of data from dataFrame input.
@@ -36,7 +34,10 @@ def Inverse(matrix):
     Returns:
         nparray: Inverted matrix
     """
-    return matrix
+    
+    inverse = np.linalg.inv(matrix)
+    
+    return inverse
 
 
 def matrixChainMultiplication( n , *args):
