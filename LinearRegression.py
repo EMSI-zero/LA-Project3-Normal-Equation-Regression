@@ -26,6 +26,19 @@ def quadraticRegression(dataFrame):
     return (a0 , a1 , a2)
 
 
+def Inverse(matrix):
+    """Inverse Matrix (M^-1) Generator
+
+    Args:
+        matrix (nparray): input matrix
+
+    Returns:
+        nparray: Inverted matrix
+    """
+    return matrix
+
+
+
 def linearPredictaion(x , a0 , a1):
     """Predicts the Expected output by using the coefficients calculated by linearRegression.
 
