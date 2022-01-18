@@ -1,3 +1,4 @@
+from re import X
 from tkinter import Y
 import numpy
 import pandas
@@ -61,7 +62,7 @@ def linearPredictaion(x , a0 , a1):
     Returns:
         Y(double): answer calculated by linearRegression prediction
     """
-    pass
+    return a0 + (a1*x)
 
 def quadraticPrediction(x , a0 , a1 , a2):
     """Predicts the Expected output by using the coefficients calculated by quadraticRegression.
@@ -75,7 +76,7 @@ def quadraticPrediction(x , a0 , a1 , a2):
     Returns:
         Y(double): answer calculated by quadraticRegression prediction
     """
-    pass
+    return a0 + (a1*x) + (a2 * pow(x, 2))
 
 def printGraph(X , Y):
     """Prints a graph by using matplotlib graph generator
