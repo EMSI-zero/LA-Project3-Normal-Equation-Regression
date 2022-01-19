@@ -3,6 +3,13 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
+def createInputMatrix(n):
+    X = []
+    for i in range(0,n):
+        X.append([1,i])
+    return X
+
 def linearRegression(dataFrame):
     """Finds a Linear Regression for a set of data from dataFrame input.
 
@@ -13,8 +20,9 @@ def linearRegression(dataFrame):
         (a0 , a1)(tuple) : a0 & a1 in equation {Y = a0 + a1.X}
     """
     DataNum = len(dataFrame)
-    TrainT = np.transpose(np.array([list(range(1,floor(DataNum * 0.95)+1))]))
+    TrainT = np.array(createInputMatrix(floor(DataNum*0.95)))
     Y =  dataFrame.iloc[:318,1:].values
+    
     
     
     
@@ -23,9 +31,7 @@ def linearRegression(dataFrame):
     
     
     print(TrainT)
-    print(dataFrame.iloc[:318,[1]].values)
-    
-    
+    print(dataFrame.iloc[:318,[1]].values)    
     # return (a0 , a1)
 
 def quadraticRegression(dataFrame):
