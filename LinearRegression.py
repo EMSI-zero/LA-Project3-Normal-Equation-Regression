@@ -17,7 +17,8 @@ def linearRegression(TrainData , Y):
     """Finds a Linear Regression for a set of data from dataFrame input.
 
     Args:
-        dataFrame (list): raw data input 
+        TrainData (list): raw data input of Xs
+        Y(list): raw data input of Ys
 
     Returns:
         (a0 , a1)(tuple) : a0 & a1 in equation {Y = a0 + a1.X}
@@ -35,13 +36,13 @@ def linearRegression(TrainData , Y):
     
     A = matrixChainMultiplication(Y , TT , XTX1)
         
-    
-    print(TrainData)
-    print(TT)
-    print(XTX)
-    print(XTX1)
-    print(Y)   
-    print(A)
+    # test
+    # print(TrainData)
+    # print(TT)
+    # print(XTX)
+    # print(XTX1)
+    # print(Y)   
+    # print(A)
     
     a0 = A[0,0]
     a1 = A[1,0]
@@ -52,11 +53,35 @@ def quadraticRegression(TrainData, Y):
     """Finds a Quadratic Regression for a set of data from dataFrame input.
 
     Args:
-        dataFrame (list): raw data input 
-
+        TrainData (list): raw data input of Xs
+        Y(list): raw data input of Ys
     Returns:
         (a0 , a1 , a2) (tuple) : a0 ,a1 , a2 in equation {Y = a0 + a1.X + a2.X^2}
     """
+    
+    #Train X Input Matrix Transpose -> Train Transpose
+    TT= TrainData.T
+    
+    #Transpose of Xs multiplied by Xs
+    XTX = np.matmul(TT,TrainData)
+    
+    #Inverse of XTX
+    XTX1 = Inverse(XTX)
+    
+    A = matrixChainMultiplication(Y , TT , XTX1)
+        
+    # test
+    # print(TrainData)
+    # print(TT)
+    # print(XTX)
+    # print(XTX1)
+    # print(Y)   
+    # print(A)
+    
+    a0 = A[0,0]
+    a1 = A[1,0]
+    a2 = A[2,0]
+    print(a0 , a1 , a2) 
     return (a0 , a1 , a2)
 
 
@@ -118,15 +143,15 @@ def quadraticPrediction(x , a0 , a1 , a2):
     """
     return a0 + (a1*x) + (a2 * pow(x, 2))
 
-def printGraph(X , Y):
+def printGraph(X , Y , lbl = ""):
     """Prints a graph by using matplotlib graph generator
 
     Args:
         X (list): Set of Xs
         Y (list): Set of Ys
     """
-    plt.plot(X , Y)
-    plt.show()
+    plt.plot(X , Y , label= lbl)
+    # plt.show()
     pass
     
     
@@ -134,6 +159,13 @@ def printGraph(X , Y):
 dataFrame = pd.read_csv("../covid_cases.csv")
 DataNum = len(dataFrame)
 TrainData = np.array(createInputMatrix(floor(DataNum*0.95), True))
+TrainDataQ = np.array(createInputMatrix(floor(DataNum*0.95), False))
 Y =  dataFrame.iloc[:318,[1]].values
-A = linearRegression(TrainData , Y)
-printGraph(TrainData , A[0]+(A[1]* TrainData))
+Al = linearRegression(TrainData , Y)
+Aq = quadraticRegression(TrainDataQ , Y)
+X = TrainData[:,[1]]
+printGraph(X , Al[0]+(Al[1]*X) , lbl= "Linear Regression:" + str(Al[0]) + "+"+ str(Al[1]) + "x")
+printGraph(X , Aq[0]+(Aq[1]* X)+(Aq[2]*pow(X,2)) , lbl= "Quadratic Regression:" + str(Aq[0]) + " + "+ str(Aq[1]) + "x +" + str(Aq[2]) + "x^2" )
+plt.plot(X,Y)
+plt.legend()
+plt.show()
