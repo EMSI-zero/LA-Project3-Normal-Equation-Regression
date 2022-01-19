@@ -135,4 +135,5 @@ dataFrame = pd.read_csv("../covid_cases.csv")
 DataNum = len(dataFrame)
 TrainData = np.array(createInputMatrix(floor(DataNum*0.95), True))
 Y =  dataFrame.iloc[:318,[1]].values
-linearRegression(dataFrame)
+A = linearRegression(TrainData , Y)
+printGraph(TrainData , A[0]+(A[1]* TrainData))
