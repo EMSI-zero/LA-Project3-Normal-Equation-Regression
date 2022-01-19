@@ -24,7 +24,7 @@ def linearRegression(dataFrame):
     """
     DataNum = len(dataFrame)
     TrainData = np.array(createInputMatrix(floor(DataNum*0.95), True))
-    Y =  dataFrame.iloc[:318,1:].values
+    Y =  dataFrame.iloc[:318,[1]].values
     
     #Train X Input Matrix Transpose -> Train Transpose
     TT= TrainData.T
@@ -35,6 +35,8 @@ def linearRegression(dataFrame):
     #Inverse of XTX
     XTX1 = Inverse(XTX)
     
+    A = matrixChainMultiplication(Y , TT , XTX1)
+    
     print(DataNum)
     
     
@@ -42,8 +44,13 @@ def linearRegression(dataFrame):
     print(TT)
     print(XTX)
     print(XTX1)
-    print(dataFrame.iloc[:318,[1]].values)    
-    # return (a0 , a1)
+    print(Y)   
+    print(A)
+    
+    a0 = A[0,0]
+    a1 = A[1,0]
+    print(a0 , a1) 
+    return (a0 , a1)
 
 def quadraticRegression(dataFrame):
     """Finds a Quadratic Regression for a set of data from dataFrame input.
