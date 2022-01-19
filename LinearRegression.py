@@ -13,7 +13,7 @@ def createInputMatrix(n, linear):
             X.append([1,i,pow(i,2)])
     return X
 
-def linearRegression(dataFrame):
+def linearRegression(TrainData , Y):
     """Finds a Linear Regression for a set of data from dataFrame input.
 
     Args:
@@ -22,9 +22,7 @@ def linearRegression(dataFrame):
     Returns:
         (a0 , a1)(tuple) : a0 & a1 in equation {Y = a0 + a1.X}
     """
-    DataNum = len(dataFrame)
-    TrainData = np.array(createInputMatrix(floor(DataNum*0.95), True))
-    Y =  dataFrame.iloc[:318,[1]].values
+    
     
     #Train X Input Matrix Transpose -> Train Transpose
     TT= TrainData.T
@@ -36,9 +34,7 @@ def linearRegression(dataFrame):
     XTX1 = Inverse(XTX)
     
     A = matrixChainMultiplication(Y , TT , XTX1)
-    
-    print(DataNum)
-    
+        
     
     print(TrainData)
     print(TT)
@@ -52,7 +48,7 @@ def linearRegression(dataFrame):
     print(a0 , a1) 
     return (a0 , a1)
 
-def quadraticRegression(dataFrame):
+def quadraticRegression(TrainData, Y):
     """Finds a Quadratic Regression for a set of data from dataFrame input.
 
     Args:
@@ -136,4 +132,7 @@ def printGraph(X , Y):
     
 
 dataFrame = pd.read_csv("../covid_cases.csv")
+DataNum = len(dataFrame)
+TrainData = np.array(createInputMatrix(floor(DataNum*0.95), True))
+Y =  dataFrame.iloc[:318,[1]].values
 linearRegression(dataFrame)
