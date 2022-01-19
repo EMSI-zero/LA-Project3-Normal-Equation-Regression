@@ -129,6 +129,8 @@ def printGraph(X , Y):
         X (list): Set of Xs
         Y (list): Set of Ys
     """
+    plt.plot(X , Y)
+    plt.show()
     pass
     
     
