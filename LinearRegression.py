@@ -1,5 +1,6 @@
+from math import floor
 import numpy as np
-import pandas as pan
+import pandas as pd
 import matplotlib.pyplot as plt
 
 def linearRegression(dataFrame):
@@ -11,7 +12,21 @@ def linearRegression(dataFrame):
     Returns:
         (a0 , a1)(tuple) : a0 & a1 in equation {Y = a0 + a1.X}
     """
-    return (a0 , a1)
+    DataNum = len(dataFrame)
+    TrainT = np.transpose(np.array([list(range(1,floor(DataNum * 0.95)+1))]))
+    Y =  dataFrame.iloc[:318,1:].values
+    
+    
+    
+    
+    print(DataNum)
+    
+    
+    print(TrainT)
+    print(dataFrame.iloc[:318,[1]].values)
+    
+    
+    # return (a0 , a1)
 
 def quadraticRegression(dataFrame):
     """Finds a Quadratic Regression for a set of data from dataFrame input.
@@ -92,3 +107,7 @@ def printGraph(X , Y):
     """
     pass
     
+    
+
+dataFrame = pd.read_csv("../covid_cases.csv")
+linearRegression(dataFrame)
