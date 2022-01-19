@@ -4,10 +4,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def createInputMatrix(n):
+def createInputMatrix(n, linear):
     X = []
     for i in range(0,n):
-        X.append([1,i])
+        if linear:
+            X.append([1,i])
+        else:
+            X.append([1,i,pow(i,2)])
     return X
 
 def linearRegression(dataFrame):
@@ -20,17 +23,25 @@ def linearRegression(dataFrame):
         (a0 , a1)(tuple) : a0 & a1 in equation {Y = a0 + a1.X}
     """
     DataNum = len(dataFrame)
-    TrainT = np.array(createInputMatrix(floor(DataNum*0.95)))
+    TrainData = np.array(createInputMatrix(floor(DataNum*0.95), True))
     Y =  dataFrame.iloc[:318,1:].values
     
+    #Train X Input Matrix Transpose -> Train Transpose
+    TT= TrainData.T
     
+    #Transpose of Xs multiplied by Xs
+    XTX = np.matmul(TT,TrainData)
     
-    
+    #Inverse of XTX
+    XTX1 = Inverse(XTX)
     
     print(DataNum)
     
     
-    print(TrainT)
+    print(TrainData)
+    print(TT)
+    print(XTX)
+    print(XTX1)
     print(dataFrame.iloc[:318,[1]].values)    
     # return (a0 , a1)
 
