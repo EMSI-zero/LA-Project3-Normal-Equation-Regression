@@ -5,13 +5,21 @@ import matplotlib.pyplot as plt
 
 
 def createInputMatrix(n, linear):
-    X = []
-    for i in range(0,n):
-        if linear:
-            X.append([1,i])
-        else:
-            X.append([1,i,pow(i,2)])
-    return X
+    
+    if linear:
+        X = np.zeros((n,2))
+        for i in range(0,n):
+            X[i][0] = 1
+            X[i][1] = i
+        return X
+    else:
+        X = np.zeros((n,3))
+        for i in range(0,n):
+            X[i][0] = 1
+            X[i][1] = i
+            X[i][2] = i**2
+        return X
+
 
 def linearRegression(TrainData , Y):
     """Finds a Linear Regression for a set of data from dataFrame input.
@@ -111,7 +119,7 @@ def matrixChainMultiplication( Y , AT , ATA1):
         nparray: product matrix
     """
     
-    product = np.matmul(ATA1, np.matmul(AT , Y))
+    product = np.matmul(np.matmul(ATA1 , AT), Y)
     
     return product
 
@@ -158,14 +166,14 @@ def printGraph(X , Y , lbl = ""):
 
 dataFrame = pd.read_csv("../covid_cases.csv")
 DataNum = len(dataFrame)
-TrainData = np.array(createInputMatrix(floor(DataNum*0.95), True))
-TrainDataQ = np.array(createInputMatrix(floor(DataNum*0.95), False))
-Y =  dataFrame.iloc[:318,[1]].values
+TrainData = np.array(createInputMatrix(floor(DataNum), True))
+TrainDataQ = np.array(createInputMatrix(floor(DataNum), False))
+Y =  dataFrame.iloc[:,[1]].values
 Al = linearRegression(TrainData , Y)
 Aq = quadraticRegression(TrainDataQ , Y)
 X = TrainData[:,[1]]
 printGraph(X , Al[0]+(Al[1]*X) , lbl= "Linear Regression:" + str(Al[0]) + "+"+ str(Al[1]) + "x")
 printGraph(X , Aq[0]+(Aq[1]* X)+(Aq[2]*pow(X,2)) , lbl= "Quadratic Regression:" + str(Aq[0]) + " + "+ str(Aq[1]) + "x +" + str(Aq[2]) + "x^2" )
-plt.plot(X,Y)
+plt.scatter(X,Y , label ="raw data")
 plt.legend()
 plt.show()
